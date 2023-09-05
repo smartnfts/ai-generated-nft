@@ -23,7 +23,7 @@ git clone https://github.com/smartnfts/ai-generated-nft.git
 ### 3.2. Install Dependencies:
 ```
 cd ai-generated-nft
-npm install
+npm install gh-pages --save-dev
 ```
 
 ### 3.3. Create APIs:
