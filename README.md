@@ -1,52 +1,54 @@
 # Create and Mint NFT using AI
 
-This project is forked from [dappuniversity/ai_nft_generator](https://github.com/dappuniversity/ai_nft_generator). The enhancements made are to be able to publish the smart contract and the NFTs on the Energi blockchain. Once published, the NFTs can be traded on the [GonnaMakeIt Marketplace](https://gonnamakeit.com).
+## 1. Configure MetaMask
 
-## 1. Technology Stack & Tools
+Add Energi Testnet Network to MetaMask by going to [https://chainlist.org](https://chainlist.org/?search=energi&testnets=true).
 
-- Solidity (Writing Smart Contracts & Tests)
-- Javascript (React & Testing)
-- [Hardhat](https://hardhat.org/) (Development Framework)
-- [Ethers.js](https://docs.ethers.io/v5/) (Blockchain Interaction)
-- [React.js](https://reactjs.org/) (Frontend Framework)
-- [NFT.Storage](https://nft.storage/) (Connection to IPFS)
-- [Hugging Face](https://huggingface.co/) (AI Models)
 
-## 2. Requirements For Initial Setup
-- Install [NodeJS](https://nodejs.org/en/)
+## 2. Clone/Download the Repository
 
-## 3. Setting Up
-### 3.1. Clone/Download the Repository
-```
-git clone https://github.com/smartnfts/ai-generated-nft.git
-```
-### 3.2. Install Dependencies:
-```
-cd ai-generated-nft
-npm install gh-pages --save-dev
+Create an account on [https://replit.com](https://replit.com).
+
+Clone the following Replit
+
+```bash
+https://replit.com/@smartNFTs/ai-generated-nft
 ```
 
-### 3.3. Create APIs:
+## 3. Create APIs
+
+### 3.1. Create API on AI NFT Generator
 
 Create an account on [Hugging Face](https://huggingface.co/). Visit your profile settings, and create a `read` access token.
 
-Create an account on [NFT.Storage](https://nft.storage/), and create a new API key.
+### 3.2. Create API on IPFS Storage
 
-### 3.4. Setup .env file:
-Before running any scripts, create a `.env` file by copying `.env.example`. Edit the following:
+Create an account on [NFT.Storage](https://nft.storage/), and then create a new API key.
 
-- **ACCOUNT_PRIVATE_KEY=""** - Get the private key for your owner account from MetaMask
-- **REACT_APP_HUGGING_FACE_API_KEY=""** - Populate the API from step 3 above
-- **REACT_APP_NFT_STORAGE_API_KEY=** - Populate the API from step 3 above. Do not put any quotes around the API
+## 4. Setup Secrets
 
-### 3.5. Name your collection
+On your Replit, go to "Shell and run the following command:
+
+```
+cp .env.example .env
+```
+
+Open `Secrets` from "Tools". Update the following variables with your information. This will stay secure and cannot be copied when your Replit is forked by someone.
+
+- **ACCOUNT_PRIVATE_KEY""** - Get the private key for your owner account from MetaMask
+- **REACT_APP_HUGGING_FACE_API_KEY""** - Populate the API from step 3 above
+- **REACT_APP_NFT_STORAGE_API_KEY** - Populate the API from step 3 above. Do not put any quotes around the API
+
+## 5. Name your Collection
+
+### 5.1. Update Deployment Variables
 
 Edit lines 4, 5 and 6 of `scripts/deploy.js`:
 
 ```
   const NAME = "AI Generated NFT"
   const SYMBOL = "AINFT"
-  const COST = ethers.utils.parseUnits("0.5", "ether") // 0.5 NRG
+  const COST = ethers.utils.parseUnits("1", "ether") // 1 NRG
 ```
 
 - *NAME* - Name of collection as you want it to appear on the Marketplace
@@ -54,7 +56,7 @@ Edit lines 4, 5 and 6 of `scripts/deploy.js`:
 - *COST* - Minting cost
 
 
-### 3.6. Update Constructor Arguments
+### 5.2. Update Constructor Arguments
 
 Edit `scripts/constructor-arg.js`. 
 
@@ -66,33 +68,90 @@ module.exports = [
 ];
 ```
 
-The entires should match the information set in `scripts/deploy.js` in step 5 above.
+The entires should match the information set in `scripts/deploy.js` in step 5.1 above.
+
+## 6. Add some Test NRG from Faucet
+
+To add some test NRG (tNRG) to your wallet, go to the [Energi Testnet Faucet](https://faucet.energi.network/) and request some tNRG be added to your account. Use the same account you generated the private key for on MetaMask.
 
 
-### 3.7. Run deployment script
 
-Deploy the smart contract to Energi Testnet.
+## 7. Smart Contract
+
+### 7.1. Deploy Smart Contract
+
+Close your "Shell" windows. From "Tools" on the left navigation pane, select "Shell". Run the following command to deploy a smart contract on Energi Testnet.
 
 ```
-npx hardhat run ./scripts/deploy.js --network energiTestnet 
+npx hardhat run ./scripts/deploy.js --network energiTestnet
+```
+
+Output:
+
+```test title="Output"
+Downloading compiler 0.8.17
+Compiled 13 Solidity files successfully
+Deployed NFT Contract at: 0x09f0eB0b32367821d06D53644081bbbdbB16e68a
+```
+
+### 7.2. Verify deployed smart contract (optional)
+
+Open [Block Explorer - Testnet](https://explorer.test.energi.network/). Check if the smart contract has been created on the Energi Testnet. 
+
+Run the following command to verify the smart contract (replace <contract_address> with your smart contract.)
+
+```text
 npx hardhat verify <contract_address> --constructor-args ./scripts/constructor-arg.js
 ```
 
-### 3.8. Start frontend
+```bash title="Verify Smart Contract"
+npx hardhat verify 0x09f0eB0b32367821d06D53644081bbbdbB16e68a --constructor-args ./scripts/constructor-arg.js
+```
+
+```text title="Verify output"
+Nothing to compile
+Compiling 1 file with 0.8.17
+Successfully submitted source code for contract
+contracts/NFT.sol:NFT at 0x09f0eB0b32367821d06D53644081bbbdbB16e68a
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract Foo on Etherscan.
+https://explorer.test.energi.network/address/0x5A106e0E52B0F60101BAeBC255c1E5d5D9fA0ABd/contracts
+```
+
+## 8. Web Application
+
+### 8.1. Update src/config.json
+
+Put the contract address on line 4 of `src/config.json`
+
+```
+{
+  "49797": {
+    "nft": {
+      "address": "0x09f0eB0b32367821d06D53644081bbbdbB16e68a"
+    }
+  }
+}
+```
+
+### 8.2. Start Web Application
+
+On the "Shell" window, run the following to start the web application:
 
 ```
 npm run start
 ```
 
-The above will start a web browser instance. If you are using the `Brave Browser`, turn shield off to "http://localhost:3000".
+A "Webview" window will pop up. Click on the right icon which will say "Open in a new tab" when you hover over it.
 
 
-## 4. Create and Mint AI Generated NFT
+## 9. Create and Mint AI Generated NFT
 
-- *4.1.* Connect your Owner Wallet
-- *4.2.* Give a `name` for the image
-- *4.3.* Add a `description` to your NFT. The AI NFT Generator will take the description and create an NFT. 
-- *4.4.* Click "Create & Mint" to generate an NFT using the AI, post the NFT to IPFS and mint it on the Energi Blockchain. You will have to pay the minting cost. 
+- *9.1.* Connect your Owner Wallet
+- *9.2.* Give a `name` for the image
+- *9.3.* Add a `description` to your NFT. The AI NFT Generator will take the description and create an NFT. 
+- *9.4.* Click "Create & Mint" to generate an NFT using the AI, post the NFT to IPFS and mint it on the Energi Blockchain. You will have to pay the minting cost. 
 
 ![Webpage](src/assets/img/webpage.png)
 
@@ -100,15 +159,32 @@ Once minted the image of the NFT will appear on the box to the right. Go to [GMI
 
 Have fun with your NFTs!
 
-## 5. Detailed Video on Coding
+## 10. Contributions
 
-For details on how the code works, view the following YouTube video:
-- [Code an A.I. NFT Minting App With Stable Diffusion Step-by-Step](https://www.youtube.com/watch?v=myascjqPnFc).
-
-## 6. Contributions
-
-Please send any contributions as ETH (on the Ethereum chain) or NRG (on the Energi chain) to the following account:
+Any contribution is appreciated. Please send ETH (on the Ethereum chain) or NRG (on the Energi chain) to the following account:
 
 ```
 0x3E9764ee008697849292511d278E8a05e1Fbba27
 ```
+
+
+## 11. Miscellaneous
+
+### 11.1. Other AI Generators
+
+- [ChatGPT NFT](https://nft.chaingpt.org/)
+- [starryai](https://starryai.com/create-nft-art-with-artificial-intelligence)
+- [NightCafe](https://creator.nightcafe.studio/create-nft-art)
+
+
+### 11.2. Other IPFS Sites
+
+- 
+
+### 11.3. Detailed Video on Coding
+
+For details on how the code works, view the following YouTube video:
+
+- [Code an A.I. NFT Minting App With Stable Diffusion Step-by-Step](https://www.youtube.com/watch?v=myascjqPnFc).
+- 
+
