@@ -1,19 +1,25 @@
 # Create and Mint NFT using AI
 
+
 ## 1. Configure MetaMask
 
 Add Energi Testnet Network to MetaMask by going to [https://chainlist.org](https://chainlist.org/?search=energi&testnets=true).
+
+![Add Network](src/assets/img/chainlist-add-network.png)
 
 
 ## 2. Clone/Download the Repository
 
 Create an account on [https://replit.com](https://replit.com).
 
-Clone the following Replit
+Fork the following Replit
 
 ```bash
 https://replit.com/@smartNFTs/ai-generated-nft
 ```
+
+![Fork Replit](src/assets/img/replit-fork.png)
+
 
 ## 3. Create APIs
 
@@ -24,6 +30,7 @@ Create an account on [Hugging Face](https://huggingface.co/). Visit your profile
 ### 3.2. Create API on IPFS Storage
 
 Create an account on [NFT.Storage](https://nft.storage/), and then create a new API key.
+
 
 ## 4. Setup Secrets
 
@@ -38,6 +45,7 @@ Open `Secrets` from "Tools". Update the following variables with your informatio
 - **ACCOUNT_PRIVATE_KEY""** - Get the private key for your owner account from MetaMask
 - **REACT_APP_HUGGING_FACE_API_KEY""** - Populate the API from step 3 above
 - **REACT_APP_NFT_STORAGE_API_KEY** - Populate the API from step 3 above. Do not put any quotes around the API
+
 
 ## 5. Name your Collection
 
@@ -70,10 +78,10 @@ module.exports = [
 
 The entires should match the information set in `scripts/deploy.js` in step 5.1 above.
 
+
 ## 6. Add some Test NRG from Faucet
 
 To add some test NRG (tNRG) to your wallet, go to the [Energi Testnet Faucet](https://faucet.energi.network/) and request some tNRG be added to your account. Use the same account you generated the private key for on MetaMask.
-
 
 
 ## 7. Smart Contract
@@ -119,6 +127,7 @@ Successfully verified contract Foo on Etherscan.
 https://explorer.test.energi.network/address/0x5A106e0E52B0F60101BAeBC255c1E5d5D9fA0ABd/contracts
 ```
 
+
 ## 8. Web Application
 
 ### 8.1. Update src/config.json
@@ -159,6 +168,7 @@ Once minted the image of the NFT will appear on the box to the right. Go to [GMI
 
 Have fun with your NFTs!
 
+
 ## 10. Contributions
 
 Any contribution is appreciated. Please send ETH (on the Ethereum chain) or NRG (on the Energi chain) to the following account:
@@ -176,15 +186,14 @@ Any contribution is appreciated. Please send ETH (on the Ethereum chain) or NRG 
 - [starryai](https://starryai.com/create-nft-art-with-artificial-intelligence)
 - [NightCafe](https://creator.nightcafe.studio/create-nft-art)
 
-
 ### 11.2. Other IPFS Sites
 
-- 
+- [Filebase](https://filebase.com/)
+- [Pinata](https://www.pinata.cloud/)
+- [IPFS.tech](https://ipfs.tech/)
 
 ### 11.3. Detailed Video on Coding
 
 For details on how the code works, view the following YouTube video:
 
 - [Code an A.I. NFT Minting App With Stable Diffusion Step-by-Step](https://www.youtube.com/watch?v=myascjqPnFc).
-- 
-
