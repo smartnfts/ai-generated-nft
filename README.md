@@ -104,6 +104,8 @@ Deployed NFT Contract at: 0x09f0eB0b32367821d06D53644081bbbdbB16e68a
 
 ### 7.2. Verify deployed smart contract (optional)
 
+_SKIP FOR NOW - NEED TO RESOLVE ISSUE_
+
 Open [Block Explorer - Testnet](https://explorer.test.energi.network/). Check if the smart contract has been created on the Energi Testnet. 
 
 Run the following command to verify the smart contract (replace <contract_address> with your smart contract.)
